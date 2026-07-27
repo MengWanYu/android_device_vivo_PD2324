@@ -1,2 +1,10 @@
-# android_device_vivo_PD2324
-TWRP device tree for vivo X100 Pro (PD2324, mt6989)
+# Android device tree for vivo V2324A (PD2324)
+
+```
+#
+# Copyright (C) 2026 The Android Open Source Project
+# Copyright (C) 2026 SebaUbuntu's TWRP device tree generator
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+```

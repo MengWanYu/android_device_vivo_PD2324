@@ -1,0 +1,9 @@
+*.mk text eol=lf
+*.rc text eol=lf
+*.fstab text eol=lf
+*.sh text eol=lf
+AndroidProducts.mk text eol=lf
+Android.bp text eol=lf
+*.py text eol=lf
+prebuilt/kernel binary
+prebuilt/dtb.img binary

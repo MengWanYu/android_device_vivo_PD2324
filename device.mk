@@ -10,9 +10,6 @@ LOCAL_PATH := device/vivo/PD2324
 # Dynamic partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-# Shipping API level (factory Android 14)
-PRODUCT_SHIPPING_API_LEVEL := 34
-
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \

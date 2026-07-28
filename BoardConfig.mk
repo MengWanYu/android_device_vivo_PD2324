@@ -93,12 +93,13 @@ TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-# Encryption - FBE + metadata (Android 14, mt6989)
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
-TW_INCLUDE_FBE_METADATA_DECRYPT := true
+# Encryption - disabled for initial bring-up (TW_INCLUDE_CRYPTO_FBE pulls
+# keystore2 AIDL deps like android.security.apc that need frameworks/base
+# fully built; deferred until boot is confirmed working)
+# TW_INCLUDE_CRYPTO := true
+# TW_INCLUDE_CRYPTO_FBE := true
+# TW_INCLUDE_FBE_METADATA_DECRYPT := true
 BOARD_USES_METADATA_PARTITION := true
-TW_USE_FSCRYPT_POLICY := 2
 
 # Recovery kernel modules (MTK UFS/MMC drivers are modules, not built-in)
 BOARD_RECOVERY_KERNEL_MODULES := $(wildcard $(DEVICE_PATH)/recovery/root/lib/modules/*.ko)

@@ -47,9 +47,6 @@ on property:recovery.load.props=1
     setprop recovery.properties.loaded 1
 
 on property:recovery.load.backup_props=1
-    load_recovery_props /cache/recovery/oem.prop
-    load_recovery_props /cache/recovery/vgc.prop
-    load_recovery_props build_props
     setprop recovery.backup_props.loaded 1
 
 on property:recovery.ce_result=1 && property:ro.debuggable=1

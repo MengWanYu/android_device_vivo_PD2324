@@ -11,5 +11,4 @@ PRODUCT_MAKEFILES := \
 
 COMMON_LUNCH_CHOICES := \
     twrp_PD2324-trunk-eng \
-    twrp_PD2324-trunk-userdebug \
-    twrp_PD2324-eng
+    twrp_PD2324-trunk-userdebug

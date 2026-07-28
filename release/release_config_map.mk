@@ -1,2 +1,2 @@
 # Minimal release config for TWRP
-$(call declare-release-config, trunk, $(LOCAL_DIR)/flags/trunk.scl)
+$(call declare-release-config, trunk, device/vivo/PD2324/release/flags/trunk.scl)

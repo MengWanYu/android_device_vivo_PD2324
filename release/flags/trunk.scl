@@ -1,1 +1,3 @@
-# No special release flags needed for TWRP recovery build
+# Minimal release config for TWRP recovery build - no special flags needed
+flags = []
+values = []

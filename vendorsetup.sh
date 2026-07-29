@@ -5,5 +5,5 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# twrp-14 uses 3-part lunch combos defined in AndroidProducts.mk COMMON_LUNCH_CHOICES.
-# add_lunch_combo (2-part format) is not supported in twrp-14 and causes lunch errors.
+add_lunch_combo twrp_PD2324-eng
+add_lunch_combo twrp_PD2324-userdebug

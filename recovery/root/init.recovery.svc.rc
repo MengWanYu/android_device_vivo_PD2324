@@ -21,27 +21,21 @@ on property:survival.start.service=true
     chmod 0755 /system/etc/dhcpcd/dhcpcd-hooks/95-configured
 
 on load_oem_props_action
-    load_recovery_props oem
     setprop recovery.oem_properties.loaded 1
 
 on load_vgc_props_action
-    load_recovery_props vgc
     setprop recovery.vgc_properties.loaded 1
 
 on load_build_props_action
-    load_recovery_props build_props
     setprop recovery.build_properties.loaded 1
 
 on load_product_props_action
-    load_recovery_props product_props
     setprop recovery.product_properties.loaded 1
 
 on load_vf_props_action
-    load_recovery_props /vfprop.default
     setprop recovery.vf_properties.loaded 1
 
 on property:recovery.load.persist_props=1
-    load_recovery_props persist
     setprop recovery.persist_properties.loaded 1
 
 on property:recovery.load.props=1
@@ -53,9 +47,6 @@ on property:recovery.load.props=1
     setprop recovery.properties.loaded 1
 
 on property:recovery.load.backup_props=1
-    load_recovery_props /cache/recovery/oem.prop
-    load_recovery_props /cache/recovery/vgc.prop
-    load_recovery_props build_props
     setprop recovery.backup_props.loaded 1
 
 on property:recovery.ce_result=1 && property:ro.debuggable=1

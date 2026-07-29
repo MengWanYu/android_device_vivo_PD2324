@@ -54,9 +54,6 @@ on property:recovery.service=1 && property:recovery.fastboot_mode=0
     start vold
 
 service vendor.boot-hal-1-2 /vendor/bin/hw/android.hardware.boot@1.2-service
-    android.hardware.boot@1.0::IBootControl default
-    interface android.hardware.boot@1.1::IBootControl default
-    interface android.hardware.boot@1.2::IBootControl default
     user root
     group root
     seclabel u:r:recovery:s0

@@ -12,7 +12,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
 # Inherit some common OrangeFox stuff.
-$(call inherit-product, vendor/recovery/config/common.mk)
+$(call inherit-product, vendor/twrp/config/common.mk)
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 

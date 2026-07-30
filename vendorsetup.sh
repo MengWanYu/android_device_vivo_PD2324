@@ -1,9 +1,7 @@
 #
 # Copyright (C) 2026 The Android Open Source Project
-# Copyright (C) 2026 SebaUbuntu's TWRP device tree generator
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
-add_lunch_combo twrp_PD2324-eng
-add_lunch_combo twrp_PD2324-userdebug
+# twrp-16.0 uses 3-part lunch combos via COMMON_LUNCH_CHOICES in AndroidProducts.mk

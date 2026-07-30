@@ -43,7 +43,6 @@ TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
 
 # APEX
-OVERRIDE_TARGET_FLATTEN_APEX := true
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := mt6989
@@ -108,12 +107,15 @@ BOARD_RECOVERY_KERNEL_MODULES := $(wildcard $(DEVICE_PATH)/recovery/root/lib/mod
 # KernelModuleLoader never loads them and init hangs waiting for
 # /dev/block/* to appear, triggering AP watchdog reset (BR_WDT_BY_PASS_PWK).
 TW_LOAD_VENDOR_BOOT_MODULES := true
+TW_LOAD_VENDOR_MODULES_EXCLUDE_GKI := true
 TW_LOAD_VENDOR_MODULES := "bootprof.ko nvmem_mtk-devinfo.ko mtk_wdt.ko timer-mediatek.ko device-apc-common.ko device-apc-mt6989.ko mtk-mbox-mailbox.ko tinysys-scmi.ko ise_lpm.ko mtk-ise-mailbox.ko pinctrl-mtk-v2.ko pinctrl-mt6989.ko iommu_debug.ko smmu_secure.ko arm_smmu_v3.ko mm-fake-engine.ko system_heap.ko mtk-scpsys.ko clk-common.ko clk-fmeter-mt6989.ko ise-trusty.ko ise-trusty-log.ko ise-trusty-ipc.ko ise-trusty-virtio.ko vcp_status.ko vcp.ko mtk-dvfsrc-regulator.ko mtk-emi.ko mtk-dvfsrc.ko mtk-hw-semaphore.ko clk-mt6989.ko clk-mt6989-peri.ko clk-mt6989-bus.ko clk-mt6989-vlp.ko mtk-pmic-wrap.ko mtk-spmi-pmic.ko spmi-mtk-pmif.ko mt6316-regulator.ko mt6363-regulator.ko mt6373-regulator.ko mt6681-regulator.ko mtk-vmm-spm-mt6989.ko mtk-scpsys-mt6989.ko mtk-scpsys-bringup.ko mt6989_dcm.ko mtk_dcm.ko clk-bringup.ko clk-chk-mt6989.ko mtk-dvfsrc-helper.ko mtk-dvfsrc-devfreq.ko mtk_dramc.ko mtk-smi.ko mtk-icc-core.ko mtk-cmdq-drv-ext.ko cmdq-platform-mt6989.ko cmdq_helper_inf.ko rt4831a_drv.ko mtk_panel_ext.ko vivo_display.ko panel_common.ko panel-nt37801-cmd-fhd.ko panel-nt37801-cmd-fhd-plus.ko drm_dma_helper.ko drm_display_helper.ko mediatek-drm.ko mtk_vdisp.ko mmprofile.ko mtk_dpc.ko mmqos-common.ko mmqos-mt6989.ko mtk-mmdvfs-v3.ko mtk-mmdvfs.ko cqhci.ko mtk-mmc-dbg.ko mtk-mmc.ko phy-mtk-ufs.ko rpmb.ko rpmb-mtk.ko ufs-mediatek-mod-ise.ko ufs-mediatek-dbg.ko blocktag.ko phy-mtk-xsphy.ko xhci-mtk-hcd-v2.ko mtu3.ko usb_boost.ko extcon-mtk-usb.ko i2c-mt65xx.ko spi-mt65xx.ko vivo_ts.ko mt6685-core.ko mt6685-nvtclk.ko mt6681-core.ko clkbuf.ko ffa_v10.ko teeperf.ko mcDrvModule-ffa.ko mtk-spmi-pmic-adc.ko pinctrl-mt6373.ko reboot-mode.ko syscon-reboot-mode.ko"
 
 # Security patch level
 PLATFORM_SECURITY_PATCH := 2099-12-31
-PLATFORM_VERSION := 16.1.0
+PLATFORM_VERSION := 99.87.36
+PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 VENDOR_SECURITY_PATCH := 2099-12-31
+BOOT_SECURITY_PATCH := 2099-12-31
 
 # TWRP Configuration
 TW_THEME := portrait_hdpi

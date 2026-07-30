@@ -9,6 +9,7 @@ DEVICE_PATH := device/vivo/PD2324
 
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
+DISABLE_HOST_INIT_VERIFIER := true
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 

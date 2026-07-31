@@ -4,6 +4,9 @@
 
 on early-init
     setprop sys.usb.configfs 0
+    # Recovery must be permissive to touch raw hardware (configfs/functionfs).
+    # K70 does this in mt6989.rc; we were enforcing which can hang services.
+    exec u:r:recovery:s0 root root -- /system/bin/setenforce 0
 
 on fs
     mkdir /config
@@ -31,9 +34,9 @@ on fs
     mkdir /dev/usb-ffs/mtp
     mkdir /dev/usb-ffs/adb
     mkdir /dev/usb-ffs/fastboot
-    mount functionfs mtp /dev/usb-ffs/mtp uid=1024,gid=1024,no_disconnect=1
-    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000,no_disconnect=1
-    mount functionfs fastboot /dev/usb-ffs/fastboot uid=2000,gid=2000,no_disconnect=1
+    mount functionfs mtp /dev/usb-ffs/mtp uid=1024,gid=1024,rmode=0770,fmode=0660
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=1000,rmode=0770,fmode=0660
+    mount functionfs fastboot /dev/usb-ffs/fastboot uid=1000,gid=1000,rmode=0770,fmode=0660
     setprop sys.usb.mtp.device_type 3
     setprop sys.usb.controller 11201000.usb0
 

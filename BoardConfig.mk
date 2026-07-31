@@ -104,7 +104,8 @@ TARGET_USERIMAGES_USE_F2FS := true
 BOARD_USES_METADATA_PARTITION := true
 
 # Recovery kernel modules (MTK UFS/MMC drivers are modules, not built-in)
-BOARD_RECOVERY_KERNEL_MODULES := $(wildcard $(DEVICE_PATH)/recovery/root/lib/modules/*.ko)
+# BOARD_RECOVERY_KERNEL_MODULES not used - modules loaded from vendor_boot via TW_LOAD_VENDOR_BOOT_MODULES
+# BOARD_RECOVERY_KERNEL_MODULES := $(wildcard $(DEVICE_PATH)/recovery/root/lib/modules/*.ko)
 
 # Load kernel modules at recovery boot time (UFS/MMC/display drivers
 # are loadable modules on mt6989, not built-in). Without this, TWRP's

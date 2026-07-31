@@ -43,13 +43,18 @@ on post-fs-data
 # Clear MTK BCB (misc + para) on any shutdown/reboot
 # Prevents bootloop where device always boots back to recovery
 # MTK LK reads both misc and para for boot-recovery command
+# Clear only the boot-recovery command field (first 32 bytes of misc BCB).
+# Slot info (slot_suffix at offset 992) and update status are preserved.
+# On MTK VAB devices the slot is managed via GPT attributes, not misc, but
+# we target only the command field to be safe.  para is MTK-specific and
+# may also store a boot-recovery command; zero it too.
 on property:sys.powerctl=shutdown,*
-    exec u:r:recovery:s0 root root -- /system/bin/toybox dd if=/dev/zero of=/dev/block/by-name/misc bs=1024 count=1
-    exec u:r:recovery:s0 root root -- /system/bin/toybox dd if=/dev/zero of=/dev/block/by-name/para bs=1024 count=1
+    exec u:r:recovery:s0 root root -- /system/bin/toybox dd if=/dev/zero of=/dev/block/by-name/misc bs=32 count=1
+    exec u:r:recovery:s0 root root -- /system/bin/toybox dd if=/dev/zero of=/dev/block/by-name/para bs=32 count=1
 
 on property:sys.powerctl=reboot,*
-    exec u:r:recovery:s0 root root -- /system/bin/toybox dd if=/dev/zero of=/dev/block/by-name/misc bs=1024 count=1
-    exec u:r:recovery:s0 root root -- /system/bin/toybox dd if=/dev/zero of=/dev/block/by-name/para bs=1024 count=1
+    exec u:r:recovery:s0 root root -- /system/bin/toybox dd if=/dev/zero of=/dev/block/by-name/misc bs=32 count=1
+    exec u:r:recovery:s0 root root -- /system/bin/toybox dd if=/dev/zero of=/dev/block/by-name/para bs=32 count=1
 
 on property:recovery.fastboot_mode=1
     start vendor.boot-hal-1-2

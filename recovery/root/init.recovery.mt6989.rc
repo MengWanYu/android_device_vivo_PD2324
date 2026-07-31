@@ -1,0 +1,6 @@
+# Original vivo PD2324 init.recovery.mt6989.rc (extracted from stock recovery)
+# Key: USB uses configfs (=1) and this controller for UDC binding.
+# (project.rc import and mtk_plpath_utils dropped - not present in OF ramdisk)
+on init
+    setprop sys.usb.configfs 1
+    setprop sys.usb.controller "11201000.usb0"

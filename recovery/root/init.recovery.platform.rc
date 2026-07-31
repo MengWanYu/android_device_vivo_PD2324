@@ -7,6 +7,15 @@ on early-init
     write /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq 2600000
     write /sys/devices/system/cpu/cpufreq/policy7/scaling_max_freq 2700000
     write /sys/class/devfreq/mtk-dvfsrc-devfreq/userspace/set_freq 0
+    # Recovery needs permissive SELinux to touch raw hardware (USB configfs).
+    # Stock recovery sets this too; without it USB setup can fail/hang.
+    exec u:r:recovery:s0 root root -- /system/bin/setenforce 0
+
+# MTK: enable USB device mode (PHY/D+ pull-up) so host can enumerate us.
+# AOSP init.rc handles gadget config/adbd/bind when sys.usb.configfs=1
+# (set in init.recovery.mt6989.rc), but mode 1 is platform-specific.
+on property:sys.usb.controller=*
+    write /sys/class/udc/${sys.usb.controller}/device/mode 1
 
 on init
     #create mountpoint for /mnt/vendor/persist partition

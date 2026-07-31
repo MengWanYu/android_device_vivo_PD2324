@@ -36,6 +36,8 @@ on fs
     mount functionfs fastboot /dev/usb-ffs/fastboot uid=2000,gid=2000,no_disconnect=1
     setprop sys.usb.mtp.device_type 3
     setprop sys.usb.controller 11201000.usb0
+    # Set USB config mode so adb bind branch triggers (from K70 mt6989.rc)
+    setprop sys.usb.config adb
 
 on property:sys.usb.config=adb && property:sys.usb.configfs=0 && property:sys.usb.ffs.ready=1
     write /config/usb_gadget/g1/idVendor 0x18D1

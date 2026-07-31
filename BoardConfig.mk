@@ -94,12 +94,14 @@ TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-# Encryption - disabled for initial bring-up (TW_INCLUDE_CRYPTO_FBE pulls
-# keystore2 AIDL deps like android.security.apc that need frameworks/base
-# fully built; deferred until boot is confirmed working)
-# TW_INCLUDE_CRYPTO := true
-# TW_INCLUDE_CRYPTO_FBE := true
-# TW_INCLUDE_FBE_METADATA_DECRYPT := true
+# Encryption - Path A: use system vold for FBE decryption
+# TW_CRYPTO_USE_SYSTEM_VOLD mounts /system and delegates to ROM's vold,
+# bypassing TWRP's native fscrypt (which uses Keymaster V4 while this
+# device uses KeyMint v3). This avoids the keystore2 AIDL dep issue.
+TW_INCLUDE_CRYPTO := true
+TW_CRYPTO_USE_SYSTEM_VOLD := true
+# TW_INCLUDE_CRYPTO_FBE := true  # not needed - handled by system vold
+# TW_INCLUDE_FBE_METADATA_DECRYPT := true  # handled by system vold
 BOARD_USES_METADATA_PARTITION := true
 
 # Recovery kernel modules (MTK UFS/MMC drivers are modules, not built-in)

@@ -63,3 +63,8 @@ on property:sys.usb.config=mass_storage,adb && property:sys.usb.configfs=0
 on property:sys.usb.config=none
     write /config/usb_gadget/g1/UDC none
     setprop sys.usb.state ${sys.usb.config}
+
+# MTK: enable USB device mode (PHY/D+ pull-up) so host can enumerate us.
+# Missing in our earlier config - this is why UDC stayed "not attached".
+on property:sys.usb.controller=*
+    write /sys/class/udc/${sys.usb.controller}/device/mode 1

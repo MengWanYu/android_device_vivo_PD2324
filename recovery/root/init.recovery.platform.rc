@@ -40,6 +40,17 @@ on post-fs-data
     mkdir /data/vendor/key_provisioning 0771 system system
 
 # just boot in fastboot mode, fastbootd service need vendor.boot-hal-1-0 & health-hal-2-0
+# Clear MTK BCB (misc + para) on any shutdown/reboot
+# Prevents bootloop where device always boots back to recovery
+# MTK LK reads both misc and para for boot-recovery command
+on property:sys.powerctl=shutdown,*
+    exec u:r:recovery:s0 root root -- /system/bin/toybox dd if=/dev/zero of=/dev/block/by-name/misc bs=1024 count=1
+    exec u:r:recovery:s0 root root -- /system/bin/toybox dd if=/dev/zero of=/dev/block/by-name/para bs=1024 count=1
+
+on property:sys.powerctl=reboot,*
+    exec u:r:recovery:s0 root root -- /system/bin/toybox dd if=/dev/zero of=/dev/block/by-name/misc bs=1024 count=1
+    exec u:r:recovery:s0 root root -- /system/bin/toybox dd if=/dev/zero of=/dev/block/by-name/para bs=1024 count=1
+
 on property:recovery.fastboot_mode=1
     start vendor.boot-hal-1-2
     start health-hal-2-0

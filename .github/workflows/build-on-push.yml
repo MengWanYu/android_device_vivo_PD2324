@@ -1,0 +1,25 @@
+name: Auto-trigger OFRP build
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch OrangeFox recovery build
+        env:
+          OFRP_TRIGGER_TOKEN: ${{ secrets.OFRP_TRIGGER_TOKEN }}
+        run: |
+          if [ -z "$OFRP_TRIGGER_TOKEN" ]; then
+            echo "::error::OFRP_TRIGGER_TOKEN secret is not set. Set it in repo Settings > Secrets."
+            exit 1
+          fi
+          curl -sS -X POST \
+            -H "Authorization: Bearer ${OFRP_TRIGGER_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/MengWanYu/Action-OFRP-Builder/actions/workflows/227338946/dispatches \
+            -d '{"ref":"main","inputs":{"MANIFEST_BRANCH":"14.1","DEVICE_TREE_URL":"https://github.com/MengWanYu/android_device_vivo_PD2324","DEVICE_TREE_BRANCH":"main","DEVICE_PATH":"device/vivo/PD2324","DEVICE_NAME":"PD2324","MAKEFILE_NAME":"twrp_PD2324-ap2a"}}'

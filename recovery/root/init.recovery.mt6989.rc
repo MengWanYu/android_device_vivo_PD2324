@@ -1,20 +1,8 @@
 # Original vivo PD2324 init.recovery.mt6989.rc (extracted from stock recovery)
-# Key: USB uses configfs (=1) and this controller for UDC binding.
-# Recovery-only actions (setenforce, USB mode) are gated via shell check
-# because this file is in the recovery fragment which may be loaded by both
-# system and recovery init. getprop ro.boot.recovery_mode returns 1 only
-# during recovery boot (set by init.rc early-init).
-
-on early-init
-    # Set SELinux permissive for recovery (needed for USB configfs).
-    # Gated: during system boot ro.boot.recovery_mode is empty → no-op.
-    exec u:r:recovery:s0 root root -- /system/bin/sh -c "getprop ro.boot.recovery_mode | grep -q 1 && /system/bin/setenforce 0"
-
+# USB uses configfs (=1) and this controller for UDC binding.
+# NOTE: setenforce 0 and mode 1 are temporarily removed to isolate the crash.
+# If configfs=1 alone does NOT crash, we add them back using a separate
+# non-blocking mechanism (e.g. a oneshot service triggered at boot).
 on init
     setprop sys.usb.configfs 1
     setprop sys.usb.controller "11201000.usb0"
-
-on boot
-    # MTK USB device mode (PHY/D+ pull-up) — required for host enumeration.
-    # Gated to recovery only: system must NOT touch USB controller mode.
-    exec u:r:recovery:s0 root root -- /system/bin/sh -c "getprop ro.boot.recovery_mode | grep -q 1 && echo 1 > /sys/class/udc/11201000.usb0/device/mode"

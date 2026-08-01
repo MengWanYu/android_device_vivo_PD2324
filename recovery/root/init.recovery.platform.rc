@@ -8,21 +8,10 @@ on early-init
     write /sys/devices/system/cpu/cpufreq/policy7/scaling_max_freq 2700000
     write /sys/class/devfreq/mtk-dvfsrc-devfreq/userspace/set_freq 0
 
-# CRITICAL: The following actions are gated on recovery_mode because this
-# platform.rc file is loaded from the vendor_boot PLATFORM fragment which is
-# SHARED by both system and recovery. Without the gate, setenforce 0 corrupts
-# Android's SELinux and kills system vold (reboot_on_failure → bootloop).
-# ro.boot.recovery_mode is set to 1 by init.rc (early-init) only in recovery.
-on early-init && property:ro.boot.recovery_mode=1
-    # Recovery needs permissive SELinux to touch raw hardware (USB configfs).
-    exec u:r:recovery:s0 root root -- /system/bin/setenforce 0
-
-# MTK: enable USB device mode (PHY/D+ pull-up) so host can enumerate us.
-# AOSP init.rc handles gadget config/adbd/bind when sys.usb.configfs=1
-# (set in init.recovery.mt6989.rc), but mode 1 is platform-specific.
-# Gated to recovery mode: system must NOT touch USB controller mode.
-on property:sys.usb.controller=* && property:ro.boot.recovery_mode=1
-    write /sys/class/udc/${sys.usb.controller}/device/mode 1
+# CRITICAL: This platform.rc file is loaded from the vendor_boot PLATFORM fragment
+# which is SHARED by both system and recovery. Do NOT put recovery-only actions
+# (setenforce, USB mode) here — they will corrupt the Android system.
+# Recovery-only actions are handled in init.rc (AOSP) which imports this file.
 
 on init
     #create mountpoint for /mnt/vendor/persist partition
